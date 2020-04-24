@@ -22,3 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/flight', function(){
 return view('flight.show_flight');
 });
+Route::get('/flight/ticket', function(){
+    return view('flight.show_myticket');
+    });
