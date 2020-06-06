@@ -18,7 +18,7 @@ class FlightDetails extends Migration
 
             $table->unsignedBigInteger('flight_id');
             $table->foreign('flight_id')->references('id')
-                ->on('flights');
+                ->on('flight_dash');
 
             $table->string('flight_departure_date')->primary();
 

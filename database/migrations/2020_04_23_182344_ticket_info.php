@@ -19,7 +19,7 @@ class TicketInfo extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('flight_id');
-            $table->foreign('flight_id')->references('id')->on('flights');
+            $table->foreign('flight_id')->references('id')->on('flight_dash');
 
             $table->string('flight_departure_date_id');
             $table->foreign('flight_departure_date_id')->references('flight_departure_date')->on('flight_details');

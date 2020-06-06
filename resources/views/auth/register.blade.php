@@ -15,7 +15,7 @@
                             <label for="firstname" class="col-md-4 col-form-label text-md-right">{{ __('firstname') }}</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" firstname="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus>
+                                <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus>
 
                                 @error('firstname')
                                     <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
                             <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('lastname') }}</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" lastname="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
+                                <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
 
                                 @error('lastname')
                                     <span class="invalid-feedback" role="alert">

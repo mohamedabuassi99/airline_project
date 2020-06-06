@@ -13,7 +13,7 @@ class CreateFlightsTable extends Migration
      */
     public function up()
     {
-        Schema::create('flights', function (Blueprint $table) {
+        Schema::create('flight_dash', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('airline_id');
             $table->string('airline_name');
@@ -34,6 +34,6 @@ class CreateFlightsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('flights');
+        Schema::dropIfExists('flight_dash');
     }
 }
