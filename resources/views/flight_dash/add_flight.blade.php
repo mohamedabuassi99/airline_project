@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="content">
-        <a href="/category/view_category" class="btn badge-black"  style="margin-left:30px">back</a>
+        <a href="{{url('/flight/view_flight')}}" class="btn badge-black" style="margin-left:30px">back</a>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
 
-                            <form action="{{ url('/flight_dash/add_flight')}}" method="post">
+                            <form action="{{ url('/flight/add_flight')}}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
@@ -30,47 +30,51 @@
                                             <input type="text" class="form-control" name="airline_name">
                                         </div>
                                     </div>
-                                </div> <div class="row">
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Category Name</label>
+                                            <label class="bmd-label-floating">From location</label>
                                             <input type="text" class="form-control" name="from_location">
                                         </div>
                                     </div>
-                                </div> <div class="row">
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">To location</label>
                                             <input type="text" class="form-control" name="to_location">
                                         </div>
                                     </div>
-                                </div> <div class="row">
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">departure time</label>
-                                            <input type="text" class="form-control" name="ddeparture_time">
+                                            <label class="">Departure time</label>
+                                            <input type="datetime-local" class="form-control" name="departure_time">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Arrival time</label>
-                                            <input type="text" class="form-control" name="arrival_time">
+                                            <label class="">Arrival time</label>
+                                            <input type="datetime-local" class="form-control" name="arrival_time">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">duration</label>
+                                            <label class="bmd-label-floating">Duration</label>
                                             <input type="text" class="form-control" name="duration">
                                         </div>
                                     </div>
-                                </div> <div class="row">
+                                </div>
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="bmd-label-floating">total seats</label>
+                                            <label class="bmd-label-floating">Total seats</label>
                                             <input type="number" class="form-control" name="total_seats">
                                         </div>
                                     </div>

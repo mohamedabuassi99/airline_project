@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use MongoDB\Driver\Session;
 
 class DashboardController extends Controller
 {
@@ -17,6 +20,25 @@ class DashboardController extends Controller
       $user = User::all();
 //        dd($user);
         return view ('user_dash')->with('user',$user);
+    }
+
+    public function deleteUser($id=null)
+    {
+        if(!$id){
+            return redirect()->back();
+        }else{
+            DB::table('users')->where('id', '=', $id)->delete();
+            return redirect()->back();
+        }
+    }
+
+    public function log_out()
+    {
+    if(!Auth::id()){
+        return view('auth.login');
+    }
+        Session::flush();
+        return redirect('/login');
     }
 
     /**

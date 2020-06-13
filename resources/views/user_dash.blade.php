@@ -1,7 +1,6 @@
 @extends('layouts.layouts')
 @section('content')
 <div class="content">
-    <a href="/category/add_category" class="btn btn-success"  style="margin-left:30px">Add Category</a>
 
     <div class="container-fluid">
         <div class="row">
@@ -35,7 +34,7 @@
                               <td>tickets</td>
 
                                 <td >
-                                    <a href="">Delete</a>
+                                    <a href="{{url('/user/delete/'.$users->id)}}">Delete</a>
 
                                 </td>
                             </tr>

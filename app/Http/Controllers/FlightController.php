@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Flight;
+use App\flight_details;
+use App\ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FlightController extends Controller
 {
 
+    public function tickeTreservation(Request $request)
+    {
+        dd($request['id']);
+        $ticket = new ticket();
+        $ticket->user_id = Auth::id();
+        $ticket->flight_id =$request['id'];
+        $ticket->flight_departure_date_id=$request['departure_time'];
+        $ticket->status= 1 ;
+        $ticket->save();
+        return view('flight.show_myticket');
+    }
     public function index()
     {
         return view('flight_dash.view_flight');
@@ -17,33 +32,32 @@ class FlightController extends Controller
     {
         if ($request->isMethod('POST')) {
             $data = $request->all();
-            $category = new Flight();
-            $category->name = $data['name'];
-            $category->parent_id = $data['parent_id'];
-            $category->description = $data['description'];
-            $category->url = $data['url'];
-            $category->save();
-            return redirect('/flight_dash/view_category');
+            $flight = new Flight();
+            $flight->airline_id = $data['airline_id'];
+            $flight->airline_name = $data['airline_name'];
+            $flight->from_location = $data['from_location'];
+            $flight->to_location = $data['to_location'];
+            $flight->departure_time = $data['departure_time'];
+            $flight->arrival_time = $data['arrival_time'];
+            $flight->duration = $data['duration'];
+            $flight->total_seats = $data['total_seats'];
+            $flight->save();
+            return redirect('flight/view_flight');
         }
-        $levels = Category::where(['parent_id' => 0])->get();
-        return view('flight_dash.add_flight')->with(compact('levels'));
+        return view('flight_dash.add_flight');
     }
 
     public function viewflight()
     {
-//        $categories = Category::get();
-
-//        return view('flight_dash.view_flight')->with(compact('categories'));
-        return view('flight_dash.view_flight');
+        $all_flight = Flight::get();
+        return view('flight_dash.view_flight')->with(compact('all_flight'));
     }
 
     public function deleteflight($id = null)
     {
 
         if (!empty($id)) {
-            //$c =Category::where([id]=>$id));
-            //$c->delete();
-            DB::table('categories')->where('id', '=', $id)->delete();
+            DB::table('flights')->where('id', '=', $id)->delete();
             return redirect()->back();
         }
     }
@@ -54,15 +68,18 @@ class FlightController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            Category::where(['id' => $id])->update(['name' => $data['name'],
-                'parent_id' => $data['parent_id'], 'description' => $data['description'],
-                'url' => $data['url']]);
-            return redirect('/flight_dash/view_flight');
+
+            Flight::where(['id' => $id])->update(['airline_id' => $data['airline_id'],
+                'airline_name' => $data['airline_name'], 'from_location' => $data['from_location'],
+                'to_location' => $data['to_location'],'departure_time' => $data['departure_time'],
+                'arrival_time' => $data['arrival_time'], 'duration' => $data['duration'] , 'total_seats' => $data['total_seats'] ]);
+
+
+            return redirect('/flight/view_flight')->with('success','updated successfuly');
 
         }
-        $category_details = Category::where(['id' => $id])->first();
-        $level = Category::where(['parent_id' => 0])->get();
-        return view('flight_dash.edit_flight')->with(compact('category_details', 'level'));
+        $flight_details = Flight::where(['id' => $id])->first();
+        return view('flight_dash.edit_flight')->with(compact('flight_details'));
 
     }
 
@@ -85,7 +102,7 @@ class FlightController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -96,7 +113,7 @@ class FlightController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Flight  $flight
+     * @param \App\Flight $flight
      * @return \Illuminate\Http\Response
      */
     public function show(Flight $flight)
@@ -107,7 +124,7 @@ class FlightController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Flight  $flight
+     * @param \App\Flight $flight
      * @return \Illuminate\Http\Response
      */
     public function edit(Flight $flight)
@@ -118,8 +135,8 @@ class FlightController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Flight  $flight
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Flight $flight
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Flight $flight)
@@ -130,7 +147,7 @@ class FlightController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Flight  $flight
+     * @param \App\Flight $flight
      * @return \Illuminate\Http\Response
      */
     public function destroy(Flight $flight)
