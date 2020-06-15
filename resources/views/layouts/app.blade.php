@@ -43,11 +43,12 @@
             <a class="navbar-brand px-3" href="{{ url('/') }}">
                 <i class="fa fa-plane  pr-2 "> </i>     Flight
             </a>
+                @if(auth()->user())
 
             <a class="navbar-brand" href="{{ url('/flight/ticket') }}">
              <i class="fa fa-ticket pr-2"></i>   Show my ticket
             </a>
-
+@endif
 
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
