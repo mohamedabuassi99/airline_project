@@ -14,15 +14,30 @@ class FlightController extends Controller
 
     public function tickeTreservation(Request $request)
     {
-        dd($request['id']);
         $ticket = new ticket();
         $ticket->user_id = Auth::id();
-        $ticket->flight_id =$request['id'];
-        $ticket->flight_departure_date_id=$request['departure_time'];
-        $ticket->status= 1 ;
+        $ticket->flight_id = $request['val'];
+        $ticket->status = 1;
         $ticket->save();
+
+        return redirect()->back();
+    }
+
+    public function myticket()
+    {
+
         return view('flight.show_myticket');
     }
+
+    public function reomve_ticket($id=null)
+    {
+        if (!empty($id)) {
+            DB::table('ticket_info')->where('id', '=', $id)->delete();
+            return redirect()->back();
+        }
+        return redirect()->back();
+    }
+
     public function index()
     {
         return view('flight_dash.view_flight');
@@ -71,11 +86,11 @@ class FlightController extends Controller
 
             Flight::where(['id' => $id])->update(['airline_id' => $data['airline_id'],
                 'airline_name' => $data['airline_name'], 'from_location' => $data['from_location'],
-                'to_location' => $data['to_location'],'departure_time' => $data['departure_time'],
-                'arrival_time' => $data['arrival_time'], 'duration' => $data['duration'] , 'total_seats' => $data['total_seats'] ]);
+                'to_location' => $data['to_location'], 'departure_time' => $data['departure_time'],
+                'arrival_time' => $data['arrival_time'], 'duration' => $data['duration'], 'total_seats' => $data['total_seats']]);
 
 
-            return redirect('/flight/view_flight')->with('success','updated successfuly');
+            return redirect('/flight/view_flight')->with('success', 'updated successfuly');
 
         }
         $flight_details = Flight::where(['id' => $id])->first();

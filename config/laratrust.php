@@ -236,7 +236,7 @@ return [
              * Aborts the execution with a 403 code and allows you to provide the response text
              */
             'abort' => [
-                'code' => 403,
+                'code' => 404,
                 'message' => 'User does not have any of the necessary access rights.'
             ],
             /**

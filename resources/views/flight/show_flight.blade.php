@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <header class="text-center bg-dark m-5"><p style=" color:#fff; font-size: 60px">Welcome to out website</p></header>
+    <header class="text-center bg-dark m-5 rounded"><p style=" color:#fff; font-size: 60px">Welcome to out website</p></header>
 
     <div style=" weidth: 100%; height: 600px; background-image: url('/img/air2.jpg');  background-repeat: no-repeat;background-attachment: fixed;
   background-size: cover;">
@@ -9,23 +9,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 ">
-                    <form method="post" class="text-center" style="margin-top: 250px;" action="">
+
+                    <form method="post" class="text-center" style="margin-top: 250px;" action="{{url('Ticketreservation')}}">
                         @csrf
                         @method('post')
-                        @php
-                            $flight = \App\Flight::all();
-                        @endphp
+                        <select  name="val" class="form-control ">
+                            @foreach($flights as $f)
+                                <option value="{{$f->id}}" >
 
-
-                        <select class="form-control ">
-                            @foreach($flight as $f)
-                                <option name="" value="{{$f->id}}">{{$f->from_location}} - to - {{$f->to_location}} --
+                                    {{$f->from_location}} - to - {{$f->to_location}} --
                                     duration {{$f->duration}} -- departure time {{$f->departure_time}} --
-                                    arrival_time {{$f->arrival_time}}</option>
+                                    arrival_time {{$f->arrival_time}}
+
+                                </option>
                             @endforeach
                         </select>
+                        <input type="hidden" name="departure_time" value="{{$f->departure_time}}">
+
                         <br>
-                        <a href="{{url('Ticketreservation')}}" class="  btn btn-primary px-5 py-2"> submit trip</a>
+                        <button type="submit" class="btn btn-dark  px-5 mt-5">
+                        submit trip </button>
                     </form>
 
 

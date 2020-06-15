@@ -10,6 +10,16 @@ use MongoDB\Driver\Session;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin']);
+    }
+
+    public function view()
+    {
+        return view('dashboard');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,16 +27,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-      $user = User::all();
-//        dd($user);
-        return view ('user_dash')->with('user',$user);
+        $user = User::all();
+        return view('user_dash')->with('user', $user);
     }
 
-    public function deleteUser($id=null)
+    public function deleteUser($id = null)
     {
-        if(!$id){
+        if (!$id) {
             return redirect()->back();
-        }else{
+        } else {
             DB::table('users')->where('id', '=', $id)->delete();
             return redirect()->back();
         }
@@ -34,9 +43,9 @@ class DashboardController extends Controller
 
     public function log_out()
     {
-    if(!Auth::id()){
-        return view('auth.login');
-    }
+        if (!Auth::id()) {
+            return view('auth.login');
+        }
         Session::flush();
         return redirect('/login');
     }
@@ -54,7 +63,7 @@ class DashboardController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -65,7 +74,7 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -76,7 +85,7 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -87,8 +96,8 @@ class DashboardController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -99,7 +108,7 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

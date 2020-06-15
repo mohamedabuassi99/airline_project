@@ -32,6 +32,11 @@ The above copyright notice and this permission notice shall be included in all c
 </head>
 
 <body class="">
+
+@if(auth()->user()->hasRole('super_admin'))
+
+
+
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
         <!--
@@ -39,13 +44,13 @@ The above copyright notice and this permission notice shall be included in all c
 
           Tip 2: you can also add an image using data-image tag
       -->
-        <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                Creative Tim
+        <div class="logo"><a href="{{url('/')}}" class="simple-text logo-normal">
+            Air Plane
             </a></div>
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="nav-item active  ">
-                    <a class="nav-link" href="./dashboard.html">
+                    <a class="nav-link" href="{{url('dashboard')}}">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
@@ -58,14 +63,8 @@ The above copyright notice and this permission notice shall be included in all c
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{url('/flight/view_flight')}}">
-                        <i class="material-icons">content_paste</i>
+                        <i class="material-icons">airplanemode_active</i>
                         <p>View flights</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="./typography.html">
-                        <i class="material-icons">library_books</i>
-                        <p>Typography</p>
                     </a>
                 </li>
 
@@ -476,6 +475,9 @@ The above copyright notice and this permission notice shall be included in all c
 
     });
 </script>
+@else
+
+    @endif
 </body>
 
 </html>
